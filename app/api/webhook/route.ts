@@ -66,7 +66,10 @@ export async function POST(req: Request) {
     };
 
     axios
-      .post("http://localhost:3000/api/sign-up", userData)
+      .post(
+        "https://dev-overflow-backend-1a8b01b9d384.herokuapp.com/api/sign-up",
+        userData
+      )
       .then((response) => {
         NextResponse.json({ message: "success", user: response.data });
       })
@@ -75,9 +78,8 @@ export async function POST(req: Request) {
       });
 
     return new Response("", { status: 200 });
-    
-  } 
-  
+  }
+
   if (eventType === "user.updated") {
     const { id, email_addresses, first_name, last_name, image_url } = evt.data;
 
@@ -87,11 +89,14 @@ export async function POST(req: Request) {
         firstName: first_name,
         lastName: last_name,
         picture: image_url,
-      }
+      },
     };
 
     axios
-      .put(`http://localhost:3000/api/v1/user/${id}`, userUpdate)
+      .put(
+        `https://dev-overflow-backend-1a8b01b9d384.herokuapp.com/api/v1/user/${id}`,
+        userUpdate
+      )
       .then((response) => {
         NextResponse.json({ message: "success", user: response.data });
       })
@@ -106,7 +111,9 @@ export async function POST(req: Request) {
     const { id } = evt.data;
 
     axios
-      .delete(`http://localhost:3000/api/v1/user/${id}`)
+      .delete(
+        `https://dev-overflow-backend-1a8b01b9d384.herokuapp.com/api/v1/user/${id}`
+      )
       .then((response) => {
         NextResponse.json({ message: "success", user: response.data });
       })
@@ -116,6 +123,4 @@ export async function POST(req: Request) {
 
     return new Response("", { status: 200 });
   }
-
-
 }
