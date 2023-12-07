@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 
 const Page = () => {
   const router = useRouter();
-  const userID = "12345678";
+  const userID = "1234567890";
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const Page = () => {
 
     const fetchUser = async () => {
       const response = await axios.get(
-        `http://localhost:5000/api/v1/user/${userID}`
+        `https://dev-overflow-backend-1a8b01b9d384.herokuapp.com/api/v1/user/${userID}`
       );
       const mongoUser = response.data;
       console.log(mongoUser);

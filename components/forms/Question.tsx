@@ -52,7 +52,8 @@ const Question = ({ mongoUserId }: Props) => {
 
     try {
       //
-      const url = "http://localhost:5000/api/v1/ask-question";
+      const url =
+        "https://dev-overflow-backend-1a8b01b9d384.herokuapp.com/api/v1/ask-question";
 
       const data = {
         title: values.title,
@@ -65,7 +66,6 @@ const Question = ({ mongoUserId }: Props) => {
       console.log(response.data);
 
       router.push("/");
-    
     } catch (error) {
       console.log(error);
     } finally {
@@ -128,7 +128,7 @@ const Question = ({ mongoUserId }: Props) => {
                   {...field}
                 />
               </FormControl>
-              <FormDescription className="body-regular text-light-500 mt-2.5">
+              <FormDescription className="body-regular mt-2.5 text-light-500">
                 Be spesific and imagine youre asking a question to another
                 person
               </FormDescription>
@@ -180,7 +180,7 @@ const Question = ({ mongoUserId }: Props) => {
                   }}
                 />
               </FormControl>
-              <FormDescription className="body-regular text-light-500 mt-2.5">
+              <FormDescription className="body-regular mt-2.5 text-light-500">
                 Introduce the problem and expand on what you put in the title.
                 Minimum 20 characters
               </FormDescription>
@@ -227,7 +227,7 @@ const Question = ({ mongoUserId }: Props) => {
                   )}
                 </>
               </FormControl>
-              <FormDescription className="body-regular text-light-500 mt-2.5">
+              <FormDescription className="body-regular mt-2.5 text-light-500">
                 Add up to 3 tags to describe what your question is about. You
                 need to press enter to add a tag
               </FormDescription>
@@ -237,7 +237,7 @@ const Question = ({ mongoUserId }: Props) => {
         />
         <Button
           type="submit"
-          className="primary-gradient !text-light-900 w-fit"
+          className="primary-gradient w-fit !text-light-900"
           disabled={isSubmitting}
         >
           {isSubmitting ? (

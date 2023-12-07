@@ -17,7 +17,9 @@ export default function Home() {
 
   useEffect(() => {
     const fetchQuestions = async () => {
-      const response = await axios.get("http://localhost:5000/api/v1/question");
+      const response = await axios.get(
+        "https://dev-overflow-backend-1a8b01b9d384.herokuapp.com/api/v1/question"
+      );
       const mongoQuestions = response.data;
       console.log(mongoQuestions);
       setQuestions(mongoQuestions);
@@ -46,7 +48,7 @@ involved! 💡"
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
         <h1 className="h1-bold text-dark100_light900">All Questions</h1>
         <Link href="/ask-question" className="flex justify-end max-sm:w-full">
-          <Button className="!text-light-900 primary-gradient shadow-light-700 min-h-[46px] px-4 py-3">
+          <Button className="primary-gradient min-h-[46px] px-4 py-3 !text-light-900 shadow-light-700">
             Ask a Question
           </Button>
         </Link>
