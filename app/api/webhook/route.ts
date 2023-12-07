@@ -74,7 +74,7 @@ export async function POST(req: Request) {
         NextResponse.json({ message: "success", user: response.data });
       })
       .catch((error) => {
-        console.error("Error making API request:", error);
+        console.error("Error making API request!!!:", error);
       });
 
     return new Response("", { status: 200 });
