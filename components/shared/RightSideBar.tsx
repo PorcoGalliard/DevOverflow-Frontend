@@ -15,7 +15,7 @@ const RightSideBar = () => {
           {topQuestions.map((question) => (
             <Link
               key={question.label}
-              href={`/questions/${question.label}`}
+              href={`/question/${question.label}`}
               className="text-dark200_light900 customer-pointer flex items-center justify-between gap-7"
             >
               <p className="text-dark200_light900 body-medium text-dark500_light700">
