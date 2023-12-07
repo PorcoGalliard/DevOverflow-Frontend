@@ -60,7 +60,7 @@ const QuestionCard = ({
 
       <div className="flex-between mt-6 w-full flex-wrap gap-3">
         <Metric
-          imgUrl="/assets/icons/avatar.svg"
+          imgUrl={`${user.picture}`}
           alt="user"
           value={user.firstName + " " + user.lastName}
           href={`/profile/${user._id}`}
