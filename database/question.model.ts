@@ -3,7 +3,7 @@ import Tag from "./tag.model";
 import User from "./user.model";
 
 type Question = {
-  _id: string;
+  id: string;
   title: string;
   description: string;
   userID: string;
