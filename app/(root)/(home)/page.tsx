@@ -71,8 +71,8 @@ involved! 💡"
       <div className="mt-10 flex w-full flex-col gap-6">
         {questions.map((question) => (
           <QuestionCard
-            key={question._id}
-            _id={question._id}
+            key={question.id}
+            _id={question.id}
             user={question.user}
             title={question.title}
             tags={question.tagDetails}
