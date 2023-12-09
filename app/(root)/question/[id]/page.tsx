@@ -3,6 +3,7 @@
 import Metric from "@/components/shared/Metric";
 import NoResult from "@/components/shared/NoResult";
 import ParseHTML from "@/components/shared/ParseHTML";
+import RenderTag from "@/components/shared/RenderTag";
 import Question from "@/database/question.model";
 import { formatAndDivideNumber, getTimestamp } from "@/lib/utils";
 import axios from "axios";
@@ -19,6 +20,7 @@ const Page = ({ params }: any) => {
         `https://dev-overflow-backend-1a8b01b9d384.herokuapp.com/api/v1/question/${params.id}`
       );
       const mongoQuestion = response.data;
+      console.log(mongoQuestion);
       setQuestion(mongoQuestion);
     };
 
@@ -95,6 +97,17 @@ const Page = ({ params }: any) => {
       </div>
 
       <ParseHTML data={question.description} />
+
+      <div className="mt-8 flex flex-wrap gap-2">
+        {question.tagDetails.map((tag: any) => (
+          <RenderTag
+            key={tag.id}
+            _id={tag.id}
+            name={tag.name}
+            showCount={false}
+          />
+        ))}
+      </div>
     </>
   );
 };
