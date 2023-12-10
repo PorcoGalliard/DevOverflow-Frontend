@@ -9,7 +9,7 @@ import { formatAndDivideNumber, getTimestamp } from "@/lib/utils";
 interface QuestionCardProps {
   _id: string;
   user: {
-    _id: string;
+    id: string;
     firstName: string;
     lastName: string;
     picture?: string;
@@ -22,7 +22,7 @@ interface QuestionCardProps {
   upvotes: string[];
   views: number;
   answers: {
-    _id: string;
+    id: string;
   }[];
   createdAt: Date;
 }
@@ -62,7 +62,7 @@ const QuestionCard = ({
           imgUrl={`${user.picture}`}
           alt="user"
           value={user.firstName + " " + user.lastName}
-          href={`/profile/${user._id}`}
+          href={`/profile/${user.id}`}
           title={` - Asked ${getTimestamp(createdAt)}`}
           isUser
           textStyles="small-medium text-dark400_light700"

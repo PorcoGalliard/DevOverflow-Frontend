@@ -4,7 +4,7 @@ import React from "react";
 
 interface Props {
   user: {
-    _id: string;
+    id: string;
     clerkID: string;
     picture: string;
     firstName: string;
