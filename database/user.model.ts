@@ -1,5 +1,5 @@
 type User = {
-  _id: string;
+  id: string;
   clerkID: string;
   firstName: string;
   lastName: string;
