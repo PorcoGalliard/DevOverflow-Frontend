@@ -1,18 +1,42 @@
 "use client";
 
+import Answer from "@/components/forms/Answer";
+import AllAnswers from "@/components/shared/AllAnswers";
 import Metric from "@/components/shared/Metric";
 import NoResult from "@/components/shared/NoResult";
 import ParseHTML from "@/components/shared/ParseHTML";
 import RenderTag from "@/components/shared/RenderTag";
+import Votes from "@/components/shared/Votes";
 import Question from "@/database/question.model";
+import User from "@/database/user.model";
 import { formatAndDivideNumber, getTimestamp } from "@/lib/utils";
+import { useUser } from "@clerk/nextjs";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
 const Page = ({ params }: any) => {
+  const { user } = useUser();
+  const router = useRouter();
+  const [appUser, setAppUser] = useState<User>();
   const [question, setQuestion] = useState<Question>();
+
+  useEffect(() => {
+    if (!user?.id) router.push("/sign-in");
+
+    const fetchUser = async () => {
+      const response = await axios.get(
+        `https://dev-overflow-backend-1a8b01b9d384.herokuapp.com/api/v1/user/${user?.id}`
+      );
+      const mongoUser = response.data;
+      // console.log(mongoUser);
+      setAppUser(mongoUser);
+    };
+
+    fetchUser();
+  }, []);
 
   useEffect(() => {
     const fetchQuestion = async () => {
@@ -60,7 +84,9 @@ const Page = ({ params }: any) => {
             </p>
           </Link>
 
-          <div className="flex justify-end">VOTING</div>
+          <div className="flex justify-end">
+            <Votes/>
+          </div>
         </div>
 
         <div>
@@ -108,6 +134,17 @@ const Page = ({ params }: any) => {
           />
         ))}
       </div>
+
+      <AllAnswers 
+      questionID={question.id}
+      userID={appUser?.id}
+      totalAnswers={question.answers.length}
+      />
+
+      <Answer
+        questionID={question.id}
+        userID={appUser?.id}
+      />
     </>
   );
 };
