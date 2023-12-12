@@ -6,19 +6,31 @@ import HomeFilters from "@/components/home/HomeFilters";
 import Filter from "@/components/shared/Filter";
 import NoResult from "@/components/shared/NoResult";
 import LocalSearch from "@/components/shared/search/LocalSearch";
-// import { Button } from "@/components/ui/button";
 import { QuestionFilters } from "@/constants/filters";
-// import Link from "next/link";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
-export default function Home() {
+interface Props {
+  Page: number;
+  Limit: number;
+  searchQuery: string;
+}
+
+export default function Page({ Page, Limit, searchQuery }: Props) {
+  const router = useRouter();
+
+  const { user } = useUser();
+
   const [questions, setQuestions] = useState<Question[]>([]);
 
   useEffect(() => {
+    if (!user?.id) router.push("/sign-in");
+
     const fetchQuestions = async () => {
       const response = await axios.get(
-        "https://dev-overflow-backend-1a8b01b9d384.herokuapp.com/api/v1/question"
+        `https://dev-overflow-backend-1a8b01b9d384.herokuapp.com/api/v1/user/${user?.id}/saved-questions}`
       );
       const mongoQuestions = response.data;
       console.log(mongoQuestions);
