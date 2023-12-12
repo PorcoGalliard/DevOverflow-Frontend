@@ -8,15 +8,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { getTimestamp } from "@/lib/utils";
 import ParseHTML from "./ParseHTML";
-import Votes from "./Votes";
+import AnswerVote from "./AnswerVote";
 
 interface Props {
   questionID: string;
   userID?: string;
+  clerkID?: string;
   totalAnswers?: number;
 }
 
-const AllAnswers = ({ questionID, userID, totalAnswers }: Props) => {
+const AllAnswers = ({ questionID, userID, clerkID, totalAnswers }: Props) => {
   const [answers, setAnswers] = useState<Answer[]>([]);
 
   useEffect(() => {
@@ -79,24 +80,17 @@ involved! 💡"
                   </div>
                 </Link>
                 <div className="flex justify-end">
-                  <Votes
-                    type="answer"
-                    itemID={answer.id}
-                    userId={userID || "Error getting user ID"}
-                    upvotes={(answer.upvotes || []).length}
-                    hasUpvoted={
-                      answer.upvotes &&
-                      answer.upvotes.includes(
-                        answer.userID || "Error getting user ID"
-                      )
-                    }
-                    downvotes={(answer.downvotes || []).length}
-                    hasDownvoted={
-                      answer.downvotes &&
-                      answer.downvotes.includes(
-                        answer.userID || "Error getting user ID"
-                      )
-                    }
+                  <AnswerVote
+                    answerId={answer.id}
+                    userId={clerkID || "Error getting user ID"}
+                    upvotes={answer.upvotes.length}
+                    hasUpvoted={answer.upvotes.includes(
+                      userID || "Error getting user ID"
+                    )}
+                    downvotes={answer.downvotes.length}
+                    hasDownvoted={answer.downvotes.includes(
+                      userID || "Error getting user ID"
+                    )}
                   />
                 </div>
               </div>
