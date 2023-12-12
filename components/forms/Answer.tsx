@@ -44,8 +44,8 @@ const Answer = ({ questionID, userID }: Props) => {
 
       const data = {
         description: values.answer,
-        userID: userID,
-        questionID: questionID,
+        userID,
+        questionID,
       };
 
       const response = await axios.post(url, data);

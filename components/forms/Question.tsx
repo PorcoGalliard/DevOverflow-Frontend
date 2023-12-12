@@ -177,7 +177,7 @@ const Question = ({ mongoUserId }: Props) => {
                     ],
                     toolbar:
                       "undo redo | " +
-                      "codesample | bold italic forecolor | alignleft aligncenter |" +
+                      "codesample | bold italic forecolor | alignleft aligncenf |" +
                       "alignright alignjustify | bullist numlist|",
                     content_style: "body { font-family:Inter; font-size:16px }",
                     skin: mode === "dark" ? "oxide-dark" : "oxide",
