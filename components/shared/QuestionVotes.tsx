@@ -22,14 +22,35 @@ const QuestionVotes = ({
   hasUpvoted: initialHasUpvoted,
   downvotes: initialDownvotes,
   hasDownvoted: initialHasDownvoted,
-  hasSaved,
+  hasSaved: initialHasSaved,
 }: Props) => {
   const [upvotes, setUpvotes] = useState(initialUpvotes);
   const [hasUpvoted, setHasUpvoted] = useState(initialHasUpvoted);
   const [downvotes, setDownvotes] = useState(initialDownvotes);
   const [hasDownvoted, setHasDownvoted] = useState(initialHasDownvoted);
+  const [hasSaved, setHasSaved] = useState(initialHasSaved);
 
-  const handleSave = () => {};
+  const handleSave = async () => {
+    if (!userId) {
+      return;
+    }
+
+    const params = {
+      questionID: questionId,
+      userID: userId,
+    };
+
+    try {
+      const res = await axios.post(
+        `https://dev-overflow-backend-1a8b01b9d384.herokuapp.com/api/v1/user/save-question`,
+        params
+      );
+      console.log("Berhasil Save / Unsave");
+      setHasSaved(res.data.isSaved);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleUpVote = async () => {
     if (!userId) {
@@ -146,7 +167,7 @@ const QuestionVotes = ({
         height={18}
         alt="save"
         className="cursor-pointer"
-        onClick={handleSave}
+        onClick={() => handleSave()}
       />
     </div>
   );
