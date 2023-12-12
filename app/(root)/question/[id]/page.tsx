@@ -6,7 +6,7 @@ import Metric from "@/components/shared/Metric";
 import NoResult from "@/components/shared/NoResult";
 import ParseHTML from "@/components/shared/ParseHTML";
 import RenderTag from "@/components/shared/RenderTag";
-import Votes from "@/components/shared/Votes";
+import QuestionVotes from "@/components/shared/QuestionVotes";
 import Question from "@/database/question.model";
 import User from "@/database/user.model";
 import { formatAndDivideNumber, getTimestamp } from "@/lib/utils";
@@ -85,9 +85,8 @@ const Page = ({ params }: any) => {
           </Link>
 
           <div className="flex justify-end">
-            <Votes
-              type="question"
-              itemID={question.id}
+            <QuestionVotes
+              questionId={question.id}
               userId={appUser?.clerkID || "Error getting user ID"}
               upvotes={question.upvotes.length}
               hasUpvoted={question.upvotes.includes(
@@ -98,7 +97,7 @@ const Page = ({ params }: any) => {
                 appUser?.id || "Error getting user ID"
               )}
               hasSaved={appUser?.saved.includes(
-                appUser?.id || "Error getting user ID"
+                question.id || "Error getting user ID"
               )}
             />
           </div>
@@ -152,7 +151,8 @@ const Page = ({ params }: any) => {
 
       <AllAnswers
         questionID={question.id}
-        userID={appUser?.clerkID}
+        clerkID={appUser?.clerkID}
+        userID={appUser?.id}
         totalAnswers={question.answers.length}
       />
 
