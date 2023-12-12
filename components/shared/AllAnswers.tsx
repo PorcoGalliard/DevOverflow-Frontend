@@ -8,6 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getTimestamp } from "@/lib/utils";
 import ParseHTML from "./ParseHTML";
+import Votes from "./Votes";
 
 interface Props {
   questionID: string;
@@ -77,7 +78,27 @@ involved! 💡"
                     </p>
                   </div>
                 </Link>
-                <div className="flex justify-end">VOTING</div>
+                <div className="flex justify-end">
+                  <Votes
+                    type="answer"
+                    itemID={answer.id}
+                    userId={userID || "Error getting user ID"}
+                    upvotes={(answer.upvotes || []).length}
+                    hasUpvoted={
+                      answer.upvotes &&
+                      answer.upvotes.includes(
+                        answer.userID || "Error getting user ID"
+                      )
+                    }
+                    downvotes={(answer.downvotes || []).length}
+                    hasDownvoted={
+                      answer.downvotes &&
+                      answer.downvotes.includes(
+                        answer.userID || "Error getting user ID"
+                      )
+                    }
+                  />
+                </div>
               </div>
             </div>
             <ParseHTML data={answer.description} />

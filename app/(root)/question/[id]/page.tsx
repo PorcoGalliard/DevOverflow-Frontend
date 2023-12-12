@@ -152,7 +152,7 @@ const Page = ({ params }: any) => {
 
       <AllAnswers
         questionID={question.id}
-        userID={appUser?.id}
+        userID={appUser?.clerkID}
         totalAnswers={question.answers.length}
       />
 

@@ -13,8 +13,8 @@ type Question = {
   views: number;
   upvotes: string[];
   downvotes: string[];
-  answers: Answer[]; //
-  createdAt: Date; //
+  answers: Answer[];
+  createdAt: Date;
 };
 
 export default Question;
