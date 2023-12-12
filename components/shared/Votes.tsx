@@ -39,8 +39,8 @@ const Votes = ({
     }
 
     const params = {
-      itemID,
-      userId,
+      questionID: itemID,
+      userID: userId,
       hasUpvoted: true,
       hasDownvoted: false,
     };
@@ -138,21 +138,18 @@ const Votes = ({
           </div>
         </div>
       </div>
-
-      {type === "question" && (
-        <Image
-          src={
-            hasSaved
-              ? "/assets/icons/star-filled.svg"
-              : "/assets/icons/star-red.svg"
-          }
-          width={18}
-          height={18}
-          alt="save"
-          className="cursor-pointer"
-          onClick={handleSave}
-        />
-      )}
+      <Image
+        src={
+          hasSaved
+            ? "/assets/icons/star-filled.svg"
+            : "/assets/icons/star-red.svg"
+        }
+        width={18}
+        height={18}
+        alt="save"
+        className="cursor-pointer"
+        onClick={handleSave}
+      />
     </div>
   );
 };
