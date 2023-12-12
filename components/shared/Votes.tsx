@@ -1,11 +1,14 @@
+"use client";
+
 import { formatAndDivideNumber } from "@/lib/utils";
 import Image from "next/image";
-import React from "react";
+import axios from "axios";
+import { useState } from "react";
 
 interface Props {
   type: string;
   itemID: string;
-  userID: string;
+  userId: string;
   upvotes: number;
   hasUpvoted: boolean;
   downvotes: number;
@@ -16,23 +19,80 @@ interface Props {
 const Votes = ({
   type,
   itemID,
-  userID,
-  upvotes,
-  hasUpvoted,
-  downvotes,
-  hasDownvoted,
+  userId,
+  upvotes: initialUpvotes,
+  hasUpvoted: initialHasUpvoted,
+  downvotes: initialDownvotes,
+  hasDownvoted: initialHasDownvoted,
   hasSaved,
 }: Props) => {
+  const [upvotes, setUpvotes] = useState(initialUpvotes);
+  const [hasUpvoted, setHasUpvoted] = useState(initialHasUpvoted);
+  const [downvotes, setDownvotes] = useState(initialDownvotes);
+  const [hasDownvoted, setHasDownvoted] = useState(initialHasDownvoted);
 
+  const handleSave = () => {};
 
-  const handleSave = () => {
+  const handleUpVote = async () => {
+    if (!userId) {
+      return;
+    }
 
-  }
+    const params = {
+      questionID: itemID,
+      userID: userId,
+      hasUpvoted: true,
+      hasDownvoted: false,
+    };
 
-  const handleVote = (action: string) => {
+    try {
+      const res = await axios.post(
+        `https://dev-overflow-backend-1a8b01b9d384.herokuapp.com/api/v1/${type}/${itemID}/vote`,
+        params
+      );
+      console.log(res.data);
+      console.log("Berhasil Upvote");
 
-  }
+      setHasUpvoted(true);
+      setHasDownvoted(false);
+      setUpvotes(upvotes + 1);
+      if (hasDownvoted) {
+        setDownvotes(downvotes - 1);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
+  const handleDownVote = async () => {
+    if (!userId) {
+      return;
+    }
+    const params = {
+      questionID: itemID,
+      userID: userId,
+      hasUpvoted: false,
+      hasDownvoted: true,
+    };
+
+    try {
+      const res = await axios.post(
+        `https://dev-overflow-backend-1a8b01b9d384.herokuapp.com/api/v1/${type}/${itemID}/vote`,
+        params
+      );
+      console.log(res.data);
+      console.log("Berhasil Downvote");
+
+      setHasUpvoted(false);
+      setHasDownvoted(true);
+      setDownvotes(downvotes + 1);
+      if (hasUpvoted) {
+        setUpvotes(upvotes - 1);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="flex gap-5">
@@ -48,7 +108,7 @@ const Votes = ({
             height={18}
             alt="upvote"
             className="cursor-pointer"
-            onClick={() => handleVote('upvote')}
+            onClick={() => handleUpVote()}
           />
 
           <div className="flex-center background-light700_dark400 min-w-[18px] rounded-sm p-1">
@@ -68,7 +128,7 @@ const Votes = ({
             height={18}
             alt="downvote"
             className="cursor-pointer"
-            onClick={() => handleVote('downvote')}
+            onClick={() => handleDownVote()}
           />
 
           <div className="flex-center background-light700_dark400 min-w-[18px] rounded-sm p-1">
@@ -79,17 +139,17 @@ const Votes = ({
         </div>
       </div>
       <Image
-            src={
-              hasSaved
-                ? "/assets/icons/star-filled.svg"
-                : "/assets/icons/star-red.svg"
-            }
-            width={18}
-            height={18}
-            alt="save"
-            className="cursor-pointer"
-            onClick={handleSave}
-          />
+        src={
+          hasSaved
+            ? "/assets/icons/star-filled.svg"
+            : "/assets/icons/star-red.svg"
+        }
+        width={18}
+        height={18}
+        alt="save"
+        className="cursor-pointer"
+        onClick={handleSave}
+      />
     </div>
   );
 };
