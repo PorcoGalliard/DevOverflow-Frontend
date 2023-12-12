@@ -85,7 +85,22 @@ const Page = ({ params }: any) => {
           </Link>
 
           <div className="flex justify-end">
-            <Votes/>
+            <Votes
+              type="question"
+              itemID={question.id}
+              userId={appUser?.clerkID || "Error getting user ID"}
+              upvotes={question.upvotes.length}
+              hasUpvoted={question.upvotes.includes(
+                appUser?.id || "Error getting user ID"
+              )}
+              downvotes={question.downvotes.length}
+              hasDownvoted={question.downvotes.includes(
+                appUser?.id || "Error getting user ID"
+              )}
+              hasSaved={appUser?.saved.includes(
+                appUser?.id || "Error getting user ID"
+              )}
+            />
           </div>
         </div>
 
@@ -135,16 +150,13 @@ const Page = ({ params }: any) => {
         ))}
       </div>
 
-      <AllAnswers 
-      questionID={question.id}
-      userID={appUser?.id}
-      totalAnswers={question.answers.length}
-      />
-
-      <Answer
+      <AllAnswers
         questionID={question.id}
         userID={appUser?.id}
+        totalAnswers={question.answers.length}
       />
+
+      <Answer questionID={question.id} userID={appUser?.id} />
     </>
   );
 };
