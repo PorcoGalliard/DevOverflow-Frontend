@@ -22,11 +22,11 @@ const AnswerVote = ({
   downvotes: initialDownvotes,
   hasDownvoted: initialHasDownvoted,
 }: Props) => {
+
   const [upvotes, setUpvotes] = useState(initialUpvotes);
   const [hasUpvoted, setHasUpvoted] = useState(initialHasUpvoted);
   const [downvotes, setDownvotes] = useState(initialDownvotes);
   const [hasDownvoted, setHasDownvoted] = useState(initialHasDownvoted);
-
 
   const handleUpVote = async () => {
     if (!userId) {
