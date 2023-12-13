@@ -1,3 +1,4 @@
+import Question from "./question.model";
 import User from "./user.model";
 
 type Answer = {
@@ -5,6 +6,7 @@ type Answer = {
   userID: string;
   user: User
   questionID: string;
+  question: Question
   description: string;
   upvotes: string[];
   downvotes: string[];

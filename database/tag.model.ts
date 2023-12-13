@@ -1,9 +1,14 @@
+import Question from "./question.model";
+import User from "./user.model";
+
 type Tag = {
-  _id: string;
+  id: string;
   description: string;
   name: string;
   questions: string[];
+  questionDetails: Question[]
   followers: string[];
+  followersDetails: User[];
   createdAt: string;
 };
 

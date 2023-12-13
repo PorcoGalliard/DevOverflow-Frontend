@@ -8,10 +8,12 @@ type User = {
   email: string;
   location: string;
   portfolioWebsite: string;
+  questions: string[];
+  answers: string[];
   isAdmin: boolean;
   reputation: number;
   saved: string[];
-  joinedAt: string;
+  joinedAt: Date;
 };
 
 export default User;
