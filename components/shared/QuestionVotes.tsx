@@ -3,7 +3,8 @@
 import { formatAndDivideNumber } from "@/lib/utils";
 import Image from "next/image";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface Props {
   questionId: string;
@@ -24,11 +25,33 @@ const QuestionVotes = ({
   hasDownvoted: initialHasDownvoted,
   hasSaved: initialHasSaved,
 }: Props) => {
+  const router = useRouter();
+
   const [upvotes, setUpvotes] = useState(initialUpvotes);
   const [hasUpvoted, setHasUpvoted] = useState(initialHasUpvoted);
   const [downvotes, setDownvotes] = useState(initialDownvotes);
   const [hasDownvoted, setHasDownvoted] = useState(initialHasDownvoted);
   const [hasSaved, setHasSaved] = useState(initialHasSaved);
+
+  useEffect(() => {
+    const updateQuestionView = async () => {
+      const params = {
+        userID: userId,
+        questionID: questionId,
+      };
+      try {
+        const res = await axios.post(
+          `https://dev-overflow-backend-1a8b01b9d384.herokuapp.com/api/v1/question/view`,
+          params
+        );
+        console.log(res.data);
+        console.log("Berhasil Update View");
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    updateQuestionView();
+  }, [questionId, userId, router]);
 
   const handleSave = async () => {
     if (!userId) {
