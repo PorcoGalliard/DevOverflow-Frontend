@@ -16,7 +16,7 @@ interface QuestionCardProps {
   };
   title: string;
   tags: {
-    _id: string;
+    id: string;
     name: string;
   }[];
   upvotes: string[];
@@ -53,7 +53,7 @@ const QuestionCard = ({
       </div>
       <div className="mt-3.5 flex flex-wrap gap-2">
         {tags.map((tag) => (
-          <RenderTag key={tag._id} _id={tag._id} name={tag.name} />
+          <RenderTag key={tag.id} _id={tag.id} name={tag.name} />
         ))}
       </div>
 
